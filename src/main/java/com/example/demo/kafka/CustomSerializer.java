@@ -5,31 +5,29 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.header.Headers;
 import org.apache.kafka.common.serialization.Serializer;
+import org.springframework.util.SerializationUtils;
 
 import java.io.Serializable;
 import java.util.Map;
 
 @Slf4j
-public class CustomSerializer<Article extends Serializable> implements Serializer<Article> {
+public class CustomSerializer<T extends Serializable> implements Serializer<T> {
     public CustomSerializer(){}
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
     }
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-
     @Override
-    public byte[] serialize(String topic, Article data) {
+    public byte[] serialize(String topic, T data) {
         try {
             if (data == null){
                 System.out.println("Null received at serializing");
                 return null;
             }
             System.out.println("Serializing...");
-            return objectMapper.writeValueAsBytes(data);
+            return SerializationUtils.serialize(data);
         } catch (Exception e) {
-            throw new SerializationException("Error when serializing MessageDto to byte[]");
+            throw new SerializationException("Error when serializing Article to byte[]");
         }
     }
 

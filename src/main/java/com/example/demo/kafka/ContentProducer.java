@@ -1,6 +1,7 @@
 package com.example.demo.kafka;
 
 
+import lombok.SneakyThrows;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
@@ -23,8 +24,8 @@ public class ContentProducer {
     }
 
     public void send(Article article) {
-        ProducerRecord<String, String> record = new ProducerRecord<>(KAFKA_ARTICLE_TOPIC
-                , KAFKA_ARTICLE_TOPIC_PARTITION, article.getArticleId().toString(), article.getArticleId().toString());
+        ProducerRecord<String, Article> record = new ProducerRecord<>(KAFKA_ARTICLE_TOPIC
+                , KAFKA_ARTICLE_TOPIC_PARTITION, article.getArticleId(), article);
         producer.send(record);
     }
 
