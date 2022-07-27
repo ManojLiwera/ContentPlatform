@@ -21,7 +21,6 @@ public class ContentController {
 
     @PostMapping("/{id}")
     public void update(@RequestBody Article article, @PathVariable String id) {
-        article.setStatus("Update");
         ContentProducer producer = new ContentProducer();
         producer.initialize();
         producer.send(article);

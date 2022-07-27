@@ -3,6 +3,7 @@ package com.example.demo.kafka;
 
 import lombok.SneakyThrows;
 import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
